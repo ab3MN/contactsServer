@@ -6,7 +6,7 @@ const {
   _updateContact,
   _deleteContact,
   _updateStatusContact,
-} = require('../../services/contacts');
+} = require('../../controllers/contactsController.js');
 
 const router = express.Router();
 const jsonParser = express.json();
