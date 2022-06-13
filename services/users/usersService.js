@@ -24,6 +24,7 @@ const login = async ({ email, password }) => {
   else if (!(await bcrypt.compare(password, user.password))) {
     throw new Error('Password is wrong');
   }
+  return user;
 };
 
 module.exports = {

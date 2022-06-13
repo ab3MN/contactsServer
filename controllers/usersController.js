@@ -1,8 +1,4 @@
-const {
-  signUp,
-  login,
-  getUserByEmail,
-} = require('../services/users/usersService');
+const { signUp, login } = require('../services/users/usersService');
 const { userDto } = require('../helpers/userDto');
 const {
   generateAccessToken,
@@ -10,24 +6,32 @@ const {
   saveToken,
 } = require('../services/tokens/tokenService');
 
+const getUserWithTokens = async (res, user) => {
+  const _user = userDto(user);
+
+  const refreshToken = generateRefreshToken({ _user });
+  await saveToken(_user.id, refreshToken);
+  res.cookie('token', refreshToken, {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    secure: true,
+  });
+  return {
+    user: _user,
+    refreshToken,
+    accessToken: generateAccessToken({ _user }),
+  };
+};
+
 const _signUp = async (req, res, next) => {
   try {
     const user = await signUp(req.body);
-    const _user = userDto(user);
     user.save();
 
-    const refreshToken = generateRefreshToken({ _user });
-    await saveToken(user._id, refreshToken);
-    res.cookie('token', refreshToken, {
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      secure: true,
-    });
+    const userWithTokens = await getUserWithTokens(res, user);
 
     return res.send({
-      user: _user,
-      accessToken: generateAccessToken({ _user }),
-      refreshToken,
+      ...userWithTokens,
     });
   } catch (e) {
     if (e._original) {
@@ -37,9 +41,16 @@ const _signUp = async (req, res, next) => {
     next(e);
   }
 };
+
 const _login = async (req, res, next) => {
   try {
-    await login(req.body);
+    const user = await login(req.body);
+
+    const userWithTokens = await getUserWithTokens(res, user);
+
+    return res.send({
+      ...userWithTokens,
+    });
   } catch (e) {
     if (e._original) {
       return res.status(400).json({ message: e.details[0].message });
