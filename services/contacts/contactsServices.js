@@ -1,22 +1,22 @@
-const { Contact } = require('./contactsModel');
+const { ContactModel } = require('./contactsModel');
 
-const getContacts = () => Contact.find({});
+const getContacts = async () => await ContactModel.find({});
 
-const getContactsById = (id) => Contact.findById(id);
+const getContactsById = async (id) => await ContactModel.findById(id);
 
-const addContact = (data) => new Contact({ ...data });
+const addContact = async (data) => await new ContactModel({ ...data });
 
-const updateContact = (_id, data) =>
-  Contact.findOneAndUpdate(
+const updateContact = async (_id, data) =>
+  await ContactModel.findOneAndUpdate(
     { _id },
     { $set: { ...data } },
     { returnDocument: 'after' }
   );
 
-const deleteContact = (id) => Contact.findByIdAndDelete(id);
+const deleteContact = async (id) => await ContactModel.findByIdAndDelete(id);
 
-const updateStatusContact = (_id, favorite) =>
-  Contact.findOneAndUpdate(
+const updateStatusContact = async (_id, favorite) =>
+  await ContactModel.findOneAndUpdate(
     { _id },
     { $set: { favorite } },
     { returnDocument: 'after' }

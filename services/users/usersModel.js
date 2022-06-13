@@ -18,18 +18,18 @@ const userSchema = new Schema(
       enum: ['starter', 'pro', 'business'],
       default: 'starter',
     },
-    token: {
-      type: String,
-      default: null,
-    },
     isActivated: { type: Boolean, default: false },
     activationLink: { type: String },
+    role: {
+      type: String,
+      default: 'user',
+    },
   },
   { versionKey: false }
 );
 
 module.exports = {
-  User: model('User', userSchema),
+  UserModel: model('User', userSchema),
   userValidateSchema: Joi.object({
     password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/),
     email: Joi.string().email({
