@@ -28,7 +28,7 @@ const _getContactsById = async (req, res, next) => {
 const _addContact = async (req, res, next) => {
   try {
     if (!req.body.name)
-      return res.status(404).json({ message: 'missing field name' });
+      return res.status(400).json({ message: 'missing field name' });
 
     const contact = await addContact(req.body).save();
     res.send(contact).status(201);

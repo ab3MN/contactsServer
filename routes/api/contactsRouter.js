@@ -17,7 +17,7 @@ router.get('/:id', _getContactsById);
 
 router.post('/', jsonParser, _addContact);
 
-router.put('/:id', jsonParser, _updateContact, _getContactsById);
+router.put('/:id', jsonParser, _updateContact);
 
 router.delete('/:id', _deleteContact);
 
