@@ -21,4 +21,7 @@ module.exports = {
     _token.save();
     return _token;
   },
+
+  deleteToken: async (refreshToken) =>
+    await TokenModel.findOneAndDelete({ refreshToken }),
 };

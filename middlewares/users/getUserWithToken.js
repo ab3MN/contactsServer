@@ -5,8 +5,8 @@ const {
 } = require('../../services/tokens/tokenService');
 
 module.exports = {
-  getUserWithTokens: async (res, user) => {
-    const _user = require('../helpers/userDto')(user);
+  getUserWithToken: async (res, user) => {
+    const _user = require('../../helpers/userDto').userDto(user);
 
     const refreshToken = generateRefreshToken({ _user });
     await saveToken(_user.id, refreshToken);

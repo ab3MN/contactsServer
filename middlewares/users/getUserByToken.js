@@ -15,4 +15,16 @@ module.exports = {
       next(e);
     }
   },
+  getToken: (req, res, next) => {
+    try {
+      const authorization = 'authorization';
+      const token =
+        req.headers[authorization] && req.headers[authorization].split(' ')[1];
+      if (!token) return res.starus(401).json({ message: 'Not authorized' });
+      req.token = token;
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
 };
