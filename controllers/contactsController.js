@@ -4,12 +4,20 @@ const {
   addContact,
   updateContact,
   deleteContact,
-  updateStatusContact,
+  updateStatusContactFavorite,
+  getContactsByPageAndLimit,
+  getContactsByContactStatusFavorite,
 } = require('../services/contacts/contactsServices');
 
-const _getContacts = async (_, res, next) => {
+const _getContacts = async (req, res, next) => {
   try {
-    res.send(await getContacts());
+    const { page, limit, favorite } = req.query;
+    if (page && limit) {
+      return res.send(await getContactsByPageAndLimit(page, limit));
+    } else if (favorite === 'true' || favorite === 'false') {
+      return res.send(await getContactsByContactStatusFavorite(favorite));
+    }
+    return res.send(await getContacts());
   } catch (e) {
     next(e);
   }
@@ -30,7 +38,8 @@ const _addContact = async (req, res, next) => {
     if (!req.body.name)
       return res.status(400).json({ message: 'missing field name' });
 
-    const contact = await addContact(req.body).save();
+    const contact = await addContact(req.body);
+    contact.save();
     res.send(contact).status(201);
   } catch (e) {
     next(e);
@@ -69,7 +78,10 @@ const _updateStatusContact = async (req, res, next) => {
     return res.status(400).json({ message: 'missing field favorite' });
 
   try {
-    const contact = await updateStatusContact(req.params.id, req.body.favorite);
+    const contact = await updateStatusContactFavorite(
+      req.params.id,
+      req.body.favorite
+    );
     res.send({
       message: 'favorite was updated',
       contact,

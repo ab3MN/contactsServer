@@ -7,6 +7,7 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(require('morgan')(formatsLogger));
 app.use(require('cors')());
+app.use(require('cookie-parser')());
 app.use(express.json());
 
 app.use('/contacts', require('./routes/api/contactsRouter'));

@@ -4,11 +4,9 @@ const {
   _login,
   _auth,
   _logOut,
+  _updateSubscription,
 } = require('../../controllers/usersController');
-const {
-  getUserByToken,
-  getToken,
-} = require('../../middlewares/users/getUserByToken');
+const { getUserByToken } = require('../../middlewares/users/getUserByToken');
 
 const router = express.Router();
 const jsonParser = express.json();
@@ -20,7 +18,10 @@ router.post('/login', jsonParser, _login);
 router.get('/auth', getUserByToken);
 router.get('/auth', _auth);
 
-router.get('/logout', getToken);
+router.get('/logout', getUserByToken);
 router.get('/logout', _logOut);
+
+router.patch('/', getUserByToken);
+router.patch('/', jsonParser, _updateSubscription);
 
 module.exports = router;

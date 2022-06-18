@@ -26,9 +26,20 @@ const login = async ({ email, password }) => {
   }
   return user;
 };
+const updateSubscription = async (id, sub = '') => {
+  if (sub !== 'starter' && sub !== 'pro' && sub !== 'business') {
+    return (
+      'Subscription must be [starter,pro,business],your subscription is: ' +
+      sub.toUpperCase()
+    );
+  }
+  await UserModel.findByIdAndUpdate({ _id: id }, { subscription: sub });
+  return UserModel.findById(id);
+};
 
 module.exports = {
   signUp,
   getUserByEmail,
   login,
+  updateSubscription,
 };

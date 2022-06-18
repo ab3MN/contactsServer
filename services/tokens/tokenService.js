@@ -7,21 +7,18 @@ module.exports = {
     }),
   generateRefreshToken: (payload) =>
     require('jsonwebtoken').sign(payload, process.env.JW_REFRESH_KEY, {
-      expiresIn: '7d',
+      expiresIn: '30d',
     }),
 
-  saveToken: async (id, refreshToken) => {
+  saveToken: async (id, accessToken) => {
     const tokenData = await TokenModel.findOne({ user: id });
     if (tokenData) {
-      tokenData.refreshToken = refreshToken;
+      tokenData.accessToken = accessToken;
       return tokenData.save();
     }
 
-    const _token = await new TokenModel({ user: id, refreshToken });
+    const _token = await new TokenModel({ user: id, accessToken });
     _token.save();
     return _token;
   },
-
-  deleteToken: async (refreshToken) =>
-    await TokenModel.findOneAndDelete({ refreshToken }),
 };
