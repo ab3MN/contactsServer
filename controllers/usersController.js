@@ -32,7 +32,8 @@ const _login = async (req, res, next) => {
     next(e);
   }
 };
-const _curent = async (req, res, next) => {
+
+const _auth = async (req, res, next) => {
   try {
     req.user
       ? res.send(req.user)
@@ -43,18 +44,10 @@ const _curent = async (req, res, next) => {
     next(e);
   }
 };
-const _auth = async (req, res, next) => {
-  try {
-    if (req.user) {
-      return res.send(req.user);
-    }
-  } catch (e) {
-    next(e);
-  }
-};
 const _logOut = async (req, res, next) => {
   try {
     if (req.user) {
+      require('../services/tokens/tokenService').deleteToken(req.user.id);
       return res.sendStatus(204);
     }
   } catch (e) {
@@ -79,7 +72,6 @@ module.exports = {
   _signUp,
   _login,
   _auth,
-  _curent,
   _logOut,
   _updateSubscription,
 };

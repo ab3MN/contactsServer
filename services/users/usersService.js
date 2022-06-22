@@ -33,8 +33,12 @@ const updateSubscription = async (id, sub = '') => {
       sub.toUpperCase()
     );
   }
-  await UserModel.findByIdAndUpdate({ _id: id }, { subscription: sub });
-  return UserModel.findById(id);
+  try {
+    await UserModel.findByIdAndUpdate({ _id: id }, { subscription: sub });
+    return UserModel.findById(id);
+  } catch {
+    throw new Error('Update Subscription with  base errors');
+  }
 };
 
 module.exports = {

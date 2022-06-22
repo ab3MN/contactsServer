@@ -21,4 +21,5 @@ module.exports = {
     _token.save();
     return _token;
   },
+  deleteToken: async (id) => await TokenModel.findOneAndDelete({ user: id }),
 };

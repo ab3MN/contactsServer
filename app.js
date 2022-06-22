@@ -1,12 +1,18 @@
 const express = require('express');
 require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
-
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
-
 app.use(require('morgan')(formatsLogger));
-app.use(require('cors')());
+
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
+
 app.use(require('cookie-parser')());
 app.use(express.json());
 

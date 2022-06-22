@@ -7,7 +7,6 @@ const {
   _updateSubscription,
 } = require('../../controllers/usersController');
 const { getUserByToken } = require('../../middlewares/users/getUserByToken');
-
 const router = express.Router();
 const jsonParser = express.json();
 
