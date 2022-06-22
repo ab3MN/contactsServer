@@ -1,5 +1,7 @@
 const { UserModel, userValidateSchema } = require('./usersModel');
 const bcrypt = require('bcrypt');
+const Jimp = require('jimp');
+const path = require('path');
 
 const getUserByEmail = async (email) => await UserModel.findOne({ email });
 
@@ -37,13 +39,40 @@ const updateSubscription = async (id, sub = '') => {
     await UserModel.findByIdAndUpdate({ _id: id }, { subscription: sub });
     return UserModel.findById(id);
   } catch {
-    throw new Error('Update Subscription with  base errors');
+    throw new Error('Update Subscription with some base errors');
   }
 };
 
+const updateAvatar = async (_id, avatarPath, name) => {
+  try {
+    const img = await Jimp.read(avatarPath);
+    img
+      .resize(250, 250)
+      .quality(60)
+      .write(path.join(__dirname, '../../public/avatars/') + 'Large_' + name);
+    img
+      .resize(80, 80)
+      .quality(60)
+      .write(path.join(__dirname, '../../public/avatars/') + 'Small_' + name);
+
+    const avatarsUrl = {
+      largerAvatarURL: '/avatars' + '/Large_' + name,
+      smallAvatarURL: '/avatars' + '/Small_' + name,
+    };
+    await UserModel.findOneAndUpdate(
+      { _id },
+      { $set: { ...avatarsUrl } },
+      { returnDocument: 'after' }
+    );
+    return avatarsUrl;
+  } catch {
+    throw new Error('Update Avatar with some base errors');
+  }
+};
 module.exports = {
   signUp,
   getUserByEmail,
   login,
   updateSubscription,
+  updateAvatar,
 };

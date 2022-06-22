@@ -2,12 +2,14 @@ const {
   signUp,
   login,
   updateSubscription,
+  updateAvatar,
 } = require('../services/users/usersService');
 const { getUserWithToken } = require('../middlewares/users/getUserWithToken');
 
 const _signUp = async (req, res, next) => {
   try {
     const user = await signUp(req.body);
+
     user.save();
 
     const userWithTokens = await getUserWithToken(res, user);
@@ -68,10 +70,21 @@ const _updateSubscription = async (req, res, next) => {
   }
 };
 
+const _updateAvatar = async (req, res, next) => {
+  try {
+    const { path: avatarPath, filename } = req.file;
+    const avatarsUrl = await updateAvatar(req.user.id, avatarPath, filename);
+    res.send(avatarsUrl);
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   _signUp,
   _login,
   _auth,
   _logOut,
   _updateSubscription,
+  _updateAvatar,
 };

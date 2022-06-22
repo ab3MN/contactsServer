@@ -1,11 +1,16 @@
 const express = require('express');
 require('dotenv').config();
-const cors = require('cors');
 
 const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 app.use(require('morgan')(formatsLogger));
 
+/* PUBLIC  */
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+
+/* CORS COOKIE JSON */
+const cors = require('cors');
 const corsConfig = {
   origin: true,
   credentials: true,
@@ -16,6 +21,7 @@ app.options('*', cors(corsConfig));
 app.use(require('cookie-parser')());
 app.use(express.json());
 
+/* ROUTES */
 app.use('/contacts', require('./routes/api/contactsRouter'));
 app.use('/users', require('./routes/api/usersRouter'));
 

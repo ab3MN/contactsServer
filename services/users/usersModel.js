@@ -18,6 +18,16 @@ const userSchema = new Schema(
       enum: ['starter', 'pro', 'business'],
       default: 'starter',
     },
+    largerAvatarURL: {
+      type: String,
+      default:
+        'https://gravatar.com/avatar/6408bc7d1b20e748bb685acdb67f2355?s=250',
+    },
+    smallAvatarURL: {
+      type: String,
+      default:
+        'https://gravatar.com/avatar/6408bc7d1b20e748bb685acdb67f2355?s=80',
+    },
     isActivated: { type: Boolean, default: false },
     activationLink: { type: String },
     role: {

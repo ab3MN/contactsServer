@@ -9,15 +9,20 @@ module.exports = {
           req.headers[authorization].split(' ')[1]) ||
         req.cookies.token;
 
-      if (!token) return res.starus(401).json({ message: 'Not authorized' });
-      const payload = require('jsonwebtoken').verify(
-        token,
-        process.env.JW_REFRESH_KEY
-      );
-      const user = await getUserByEmail(payload.email);
+      if (!token) res.status(401).json({ message: 'Not authorized' });
 
-      req.user = require('../../helpers/userDto').userDto(user);
-      next();
+      require('jsonwebtoken').verify(
+        token,
+        process.env.JW_REFRESH_KEY,
+        (err, payload) => {
+          if (err) return res.status(403).json({ message: 'Bad token' });
+
+          getUserByEmail(payload?.email).then((user) => {
+            req.user = require('../../helpers/userDto').userDto(user);
+            next();
+          });
+        }
+      );
     } catch (e) {
       next(e);
     }
