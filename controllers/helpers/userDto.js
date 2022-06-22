@@ -7,6 +7,7 @@ module.exports = {
     role,
     largerAvatarURL,
     smallAvatarURL,
+    activationLink,
   }) => ({
     email,
     id: _id,
@@ -15,5 +16,6 @@ module.exports = {
     role,
     largerAvatarURL,
     smallAvatarURL,
+    activationLink,
   }),
 };

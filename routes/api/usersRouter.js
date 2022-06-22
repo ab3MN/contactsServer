@@ -6,6 +6,7 @@ const {
   _logOut,
   _updateSubscription,
   _updateAvatar,
+  _activate,
 } = require('../../controllers/usersController');
 const { getUserByToken } = require('../../middlewares/users/getUserByToken');
 const router = express.Router();
@@ -19,6 +20,8 @@ router.post('/login', jsonParser, _login);
 
 router.get('/auth', getUserByToken);
 router.get('/auth', _auth);
+
+router.get('/activate/:link', _activate);
 
 router.get('/logout', getUserByToken);
 router.get('/logout', _logOut);

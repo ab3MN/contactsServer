@@ -1,7 +1,8 @@
 const configOptions = require('nodemailer').createTransport({
+  service: 'gmail',
   host: process.env.SMTP_HOST,
-  post: process.env.SMTP_PORT,
-  secure: true,
+  port: process.env.SMTP_PORT,
+  secure: false,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,

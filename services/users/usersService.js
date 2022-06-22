@@ -5,7 +5,7 @@ const path = require('path');
 
 const getUserByEmail = async (email) => await UserModel.findOne({ email });
 
-const signUp = async ({ email, password }) => {
+const signUp = async ({ email, password }, activationLink) => {
   await userValidateSchema.validateAsync({
     password,
     email,
@@ -13,7 +13,7 @@ const signUp = async ({ email, password }) => {
   if (await getUserByEmail(email)) throw new Error('Email in use');
 
   const _password = await bcrypt.hash(password, 10);
-  return new UserModel({ email, password: _password });
+  return new UserModel({ email, password: _password, activationLink });
 };
 
 const login = async ({ email, password }) => {
@@ -69,10 +69,18 @@ const updateAvatar = async (_id, avatarPath, name) => {
     throw new Error('Update Avatar with some base errors');
   }
 };
+const activate = async (activationLink) => {
+  const user = await UserModel.findOne({ activationLink });
+  if (!user) throw new Error('The link is wrong');
+
+  user.isActivated = true;
+  await user.save();
+};
 module.exports = {
   signUp,
   getUserByEmail,
   login,
   updateSubscription,
   updateAvatar,
+  activate,
 };

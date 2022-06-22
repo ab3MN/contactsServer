@@ -3,16 +3,25 @@ const {
   login,
   updateSubscription,
   updateAvatar,
+  activate,
 } = require('../services/users/usersService');
 const { getUserWithToken } = require('../middlewares/users/getUserWithToken');
+const { sendActivationMail } = require('../services/mail/mailService');
 
 const _signUp = async (req, res, next) => {
   try {
-    const user = await signUp(req.body);
+    const activationLink = require('uuid').v4();
+
+    const user = await signUp(req.body, activationLink);
 
     user.save();
 
     const userWithTokens = await getUserWithToken(res, user);
+
+    await sendActivationMail(
+      req.body.email,
+      `${process.env.API_URL}/users/activate/${activationLink}`
+    );
 
     return res.send({
       ...userWithTokens,
@@ -22,10 +31,17 @@ const _signUp = async (req, res, next) => {
     next(e);
   }
 };
+const _activate = async (req, res, next) => {
+  try {
+    activate(req.params.link);
+    return res.redirect(process.env.CLIENT_URL);
+  } catch (e) {}
+};
 const _login = async (req, res, next) => {
   try {
     const user = await login(req.body);
     const userWithTokens = await getUserWithToken(res, user);
+
     return res.send({
       ...userWithTokens,
     });
@@ -64,7 +80,7 @@ const _updateSubscription = async (req, res, next) => {
     } else if (typeof user === 'string') {
       res.status(401).json({ message: user });
     }
-    return res.send(require('../helpers/userDto').userDto(user));
+    return res.send(require('./helpers/userDto').userDto(user));
   } catch (e) {
     next(e);
   }
@@ -87,4 +103,5 @@ module.exports = {
   _logOut,
   _updateSubscription,
   _updateAvatar,
+  _activate,
 };
