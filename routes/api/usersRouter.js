@@ -13,22 +13,24 @@ const {
 const { getUserByToken } = require('../../middlewares/users/getUserByToken');
 const uploadUserAvatar = require('../../middlewares/users/uploadUserAvatar');
 
-router.use('/', getUserByToken);
-
 /* REGISTER LOGIN AUTH LOGOUT */
 router.post('/signup', jsonParser, _signUp);
 
 router.post('/login', jsonParser, _login);
 
+router.get('/auth', getUserByToken);
 router.get('/auth', _auth);
+
+router.get('/logout', getUserByToken);
+router.get('/logout', _logOut);
 
 router.get('/activate/:link', _activate);
 
-router.get('/logout', _logOut);
-
 /* Avatar Subcription */
+router.patch('/avatar', getUserByToken);
 router.patch('/avatar', uploadUserAvatar.single('avatar'), _updateAvatar);
 
+router.patch('/subscription', getUserByToken);
 router.patch('/subscription', jsonParser, _updateSubscription);
 
 module.exports = router;

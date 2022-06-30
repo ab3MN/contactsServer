@@ -68,6 +68,7 @@ const _logOut = async (req, res, next) => {
   try {
     if (req.user) {
       require('../services/tokens/tokenService').deleteToken(req.user.id);
+      res.clearCookie('token');
       return res.sendStatus(204);
     }
   } catch (e) {

@@ -31,7 +31,7 @@ const _getContactsById = async (req, res, next) => {
     const contact = await getContactsById(req.user.id, req.params.id);
     if (!contact) res.status(404).json({ message: 'Not found' });
 
-    res.send(contact);
+    res.send(...contact);
   } catch (e) {
     next(e);
   }
