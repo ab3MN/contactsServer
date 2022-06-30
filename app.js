@@ -22,6 +22,7 @@ app.use(require('cookie-parser')());
 app.use(express.json());
 
 /* ROUTES */
+
 app.use('/contacts', require('./routes/api/contactsRouter'));
 app.use('/users', require('./routes/api/usersRouter'));
 

@@ -29,7 +29,7 @@ const userSchema = new Schema(
         'https://gravatar.com/avatar/6408bc7d1b20e748bb685acdb67f2355?s=80',
     },
     isActivated: { type: Boolean, default: false },
-    activationLink: { type: String },
+    activationLink: { type: String, default: '' },
     role: {
       type: String,
       default: 'user',

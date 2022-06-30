@@ -1,35 +1,40 @@
 const { ContactModel } = require('./contactsModel');
 
-const getContacts = async () => await ContactModel.find({});
+const getContacts = async (owner) => await ContactModel.find({ owner });
 
-const getContactsByPageAndLimit = async (page = 0, limit = 0) => {
-  const contacts = await getContacts();
+const getContactsByPageAndLimit = async (owner, page = 0, limit = 0) => {
+  const contacts = await getContacts(owner);
   if (+page === 0 || isNaN(+page) || +limit === 0 || isNaN(+limit)) {
     return contacts;
   }
   return contacts.slice((page - 1) * limit, page * limit);
 };
-const getContactsById = async (id) => await ContactModel.findById(id);
+const getContactsById = async (owner, _id) =>
+  await ContactModel.find({
+    owner,
+    _id,
+  });
 
-const getContactsByContactStatusFavorite = async (status) => {
+const getContactsByContactStatusFavorite = async (owner, status) => {
   const _status = status === 'true';
-  return await ContactModel.find({ favorite: _status });
+  return await ContactModel.find({ owner, favorite: _status });
 };
 
-const addContact = async (data) => await new ContactModel({ ...data });
+const addContact = async (owner, data) =>
+  await new ContactModel({ ...data, owner });
 
-const updateContact = async (_id, data) =>
+const updateContact = async (owner, _id, data) =>
   await ContactModel.findOneAndUpdate(
-    { _id },
+    { _id, owner },
     { $set: { ...data } },
     { returnDocument: 'after' }
   );
 
 const deleteContact = async (id) => await ContactModel.findByIdAndDelete(id);
 
-const updateStatusContactFavorite = async (_id, favorite) =>
+const updateStatusContactFavorite = async (owner, _id, favorite) =>
   await ContactModel.findOneAndUpdate(
-    { _id },
+    { _id, owner },
     { $set: { favorite } },
     { returnDocument: 'after' }
   );

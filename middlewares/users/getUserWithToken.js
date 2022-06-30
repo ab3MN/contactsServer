@@ -16,7 +16,7 @@ module.exports = {
       secure: true,
     });
     return {
-      user: require('../../controllers/helpers/userDto').userDto(user),
+      user: require('../../helpers/userDto').userDto(user),
       accessToken,
       refreshToken,
     };

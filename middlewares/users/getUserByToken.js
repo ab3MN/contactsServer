@@ -18,9 +18,7 @@ module.exports = {
           if (err) return res.status(403).json({ message: 'Bad token' });
 
           getUserByEmail(payload?.email).then((user) => {
-            req.user = require('../../controllers/helpers/userDto').userDto(
-              user
-            );
+            req.user = require('../../helpers/userDto').userDto(user);
             next();
           });
         }

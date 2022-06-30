@@ -71,10 +71,13 @@ const updateAvatar = async (_id, avatarPath, name) => {
 };
 const activate = async (activationLink) => {
   const user = await UserModel.findOne({ activationLink });
-  if (!user) throw new Error('The link is wrong');
-
+  if (!user) {
+    return false;
+  }
   user.isActivated = true;
+  user.activationLink = '';
   await user.save();
+  return true;
 };
 module.exports = {
   signUp,

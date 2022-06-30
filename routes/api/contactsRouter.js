@@ -7,10 +7,12 @@ const {
   _deleteContact,
   _updateStatusContact,
 } = require('../../controllers/contactsController.js');
+const { getUserByToken } = require('../../middlewares/users/getUserByToken');
 
 const router = express.Router();
 const jsonParser = express.json();
 
+router.use('/', getUserByToken);
 router.get('/', _getContacts);
 
 router.get('/:id', _getContactsById);

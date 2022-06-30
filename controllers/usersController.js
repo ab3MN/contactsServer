@@ -33,8 +33,10 @@ const _signUp = async (req, res, next) => {
 };
 const _activate = async (req, res, next) => {
   try {
-    activate(req.params.link);
-    return res.redirect(process.env.CLIENT_URL);
+    const isActivated = await activate(req.params.link);
+    return isActivated
+      ? res.redirect(process.env.CLIENT_URL)
+      : res.status(404).json({ message: 'User is activated' });
   } catch (e) {}
 };
 const _login = async (req, res, next) => {
@@ -80,7 +82,7 @@ const _updateSubscription = async (req, res, next) => {
     } else if (typeof user === 'string') {
       res.status(401).json({ message: user });
     }
-    return res.send(require('./helpers/userDto').userDto(user));
+    return res.send(require('../helpers/userDto').userDto(user));
   } catch (e) {
     next(e);
   }
