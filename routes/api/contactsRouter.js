@@ -6,8 +6,10 @@ const {
   _updateContact,
   _deleteContact,
   _updateStatusContact,
+  _updateAvatarContact,
 } = require('../../controllers/contactsController.js');
 const { getUserByToken } = require('../../middlewares/users/getUserByToken');
+const uploadAvatar = require('../../middlewares/users/uploadAvatar');
 
 const router = express.Router();
 const jsonParser = express.json();
@@ -24,5 +26,11 @@ router.put('/:id', jsonParser, _updateContact);
 router.delete('/:id', _deleteContact);
 
 router.patch('/:id/favorite', _updateStatusContact);
+
+router.patch(
+  '/:id/avatar',
+  uploadAvatar.single('avatar'),
+  _updateAvatarContact
+);
 
 module.exports = router;

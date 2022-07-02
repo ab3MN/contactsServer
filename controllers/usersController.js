@@ -2,8 +2,8 @@ const {
   signUp,
   login,
   updateSubscription,
-  updateAvatar,
   activate,
+  updateUserAvatar,
 } = require('../services/users/usersService');
 const { getUserWithToken } = require('../middlewares/users/getUserWithToken');
 const { sendActivationMail } = require('../services/mail/mailService');
@@ -89,10 +89,10 @@ const _updateSubscription = async (req, res, next) => {
   }
 };
 
-const _updateAvatar = async (req, res, next) => {
+const _updateUserAvatar = async (req, res, next) => {
   try {
-    const { path: avatarPath, filename } = req.file;
-    const avatarsUrl = await updateAvatar(req.user.id, avatarPath, filename);
+    const { path: img, filename } = req.file;
+    const avatarsUrl = await updateUserAvatar(req.user.id, img, filename);
     res.send(avatarsUrl);
   } catch (e) {
     next(e);
@@ -105,6 +105,6 @@ module.exports = {
   _auth,
   _logOut,
   _updateSubscription,
-  _updateAvatar,
+  _updateUserAvatar,
   _activate,
 };

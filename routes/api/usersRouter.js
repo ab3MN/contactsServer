@@ -7,11 +7,11 @@ const {
   _auth,
   _logOut,
   _updateSubscription,
-  _updateAvatar,
+  _updateUserAvatar,
   _activate,
 } = require('../../controllers/usersController');
 const { getUserByToken } = require('../../middlewares/users/getUserByToken');
-const uploadUserAvatar = require('../../middlewares/users/uploadUserAvatar');
+const uploadAvatar = require('../../middlewares/users/uploadAvatar');
 
 /* REGISTER LOGIN AUTH LOGOUT */
 router.post('/signup', jsonParser, _signUp);
@@ -28,7 +28,7 @@ router.get('/activate/:link', _activate);
 
 /* Avatar Subcription */
 router.patch('/avatar', getUserByToken);
-router.patch('/avatar', uploadUserAvatar.single('avatar'), _updateAvatar);
+router.patch('/avatar', uploadAvatar.single('avatar'), _updateUserAvatar);
 
 router.patch('/subscription', getUserByToken);
 router.patch('/subscription', jsonParser, _updateSubscription);

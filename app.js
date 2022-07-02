@@ -25,6 +25,7 @@ app.use(express.json());
 
 app.use('/contacts', require('./routes/api/contactsRouter'));
 app.use('/users', require('./routes/api/usersRouter'));
+app.use('/tasks', require('./routes/api/tasksRouter'));
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Not found' });

@@ -7,6 +7,7 @@ const {
   updateStatusContactFavorite,
   getContactsByPageAndLimit,
   getContactsByContactStatusFavorite,
+  updateContactAvatar,
 } = require('../services/contacts/contactsServices');
 
 const _getContacts = async (req, res, next) => {
@@ -20,7 +21,7 @@ const _getContacts = async (req, res, next) => {
         await getContactsByContactStatusFavorite(userId, favorite)
       );
     }
-    return res.send(await getContacts(userId, req.user.id));
+    return res.send(await getContacts(userId));
   } catch (e) {
     next(e);
   }
@@ -97,6 +98,16 @@ const _updateStatusContact = async (req, res, next) => {
   }
 };
 
+const _updateAvatarContact = async (req, res, next) => {
+  try {
+    const { path: img, filename } = req.file;
+    const avatarsUrl = await updateContactAvatar(req.user.id, img, filename);
+    res.send(avatarsUrl);
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   _getContacts,
   _getContactsById,
@@ -104,4 +115,5 @@ module.exports = {
   _updateContact,
   _deleteContact,
   _updateStatusContact,
+  _updateAvatarContact,
 };
