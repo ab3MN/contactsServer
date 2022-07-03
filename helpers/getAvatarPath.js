@@ -19,8 +19,8 @@ module.exports = {
           path.join(__dirname, '../public' + avatarPath) + 'Small_' + name
         );
       return {
-        largerAvatarURL: avatarPath + '/Large_' + name,
-        smallAvatarURL: avatarPath + '/Small_' + name,
+        largerAvatarURL: avatarPath + 'Large_' + name,
+        smallAvatarURL: avatarPath + 'Small_' + name,
       };
     } catch (e) {
       console.log(e);

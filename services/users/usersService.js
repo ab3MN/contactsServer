@@ -1,8 +1,6 @@
 const { UserModel, userValidateSchema } = require('./usersModel');
-// const { getAvatarPath } = require('../../helpers/getAvatarPath');
+const { getAvatarPath } = require('../../helpers/getAvatarPath');
 const bcrypt = require('bcrypt');
-const Jimp = require('jimp');
-const path = require('path');
 
 const getUserByEmail = async (email) => await UserModel.findOne({ email });
 
@@ -46,24 +44,8 @@ const updateSubscription = async (id, sub = '') => {
 
 const updateUserAvatar = async (_id, avatarPath, name) => {
   try {
-    const img = await Jimp.read(avatarPath);
-    img
-      .resize(250, 250)
-      .quality(60)
-      .write(
-        path.join(__dirname, '../../public/user/avatars/') + 'Large_' + name
-      );
-    img
-      .resize(80, 80)
-      .quality(60)
-      .write(
-        path.join(__dirname, '../../public/user/avatars/') + 'Small_' + name
-      );
+    const avatarsUrl = getAvatarPath(avatarPath, '/user/avatars/', name);
 
-    const avatarsUrl = {
-      largerAvatarURL: '/user/avatars' + '/Large_' + name,
-      smallAvatarURL: '/user/avatars' + '/Small_' + name,
-    };
     await UserModel.findOneAndUpdate(
       { _id },
       { $set: { ...avatarsUrl } },

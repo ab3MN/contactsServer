@@ -1,7 +1,5 @@
 const { ContactModel } = require('./contactsModel');
-// const { getAvatarPath } = require('../../helpers/getAvatarPath');
-const Jimp = require('jimp');
-const path = require('path');
+const { getAvatarPath } = require('../../helpers/getAvatarPath');
 
 const getContacts = async (owner) => await ContactModel.find({ owner });
 
@@ -44,23 +42,8 @@ const updateStatusContactFavorite = async (owner, _id, favorite) =>
 
 const updateContactAvatar = async (_id, avatarPath, name) => {
   try {
-    const img = await Jimp.read(avatarPath);
-    img
-      .resize(250, 250)
-      .quality(60)
-      .write(
-        path.join(__dirname, '../../public/contact/avatars/') + 'Large_' + name
-      );
-    img
-      .resize(80, 80)
-      .quality(60)
-      .write(
-        path.join(__dirname, '../../public/contact/avatars/') + 'Small_' + name
-      );
-    const avatarsUrl = {
-      largerAvatarURL: '/contact/avatars' + '/Large_' + name,
-      smallAvatarURL: '/contact/avatars' + '/Small_' + name,
-    };
+    const avatarsUrl = getAvatarPath(avatarPath, '/contact/avatars/', name);
+
     await ContactModel.findOneAndUpdate(
       { _id },
       { $set: { ...avatarsUrl } },
