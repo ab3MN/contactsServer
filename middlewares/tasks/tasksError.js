@@ -5,11 +5,11 @@ module.exports = {
     const { start, finish } = req.body;
     if (!isItADate(start))
       return res.status(400).json({
-        message: 'start formats are [dd/mm/yyyy,dd-mm-yyyy,dd.mm.yyyy]',
+        message: 'start format is [dd/mm/yyyy,dd-mm-yyyy,dd.mm.yyyy]',
       });
     else if (!isItADate(finish)) {
       return res.status(400).json({
-        message: 'finish formats are [dd/mm/yyyy, dd-mm-yyyy,dd.mm.yyyy]',
+        message: 'finish format is [dd/mm/yyyy, dd-mm-yyyy,dd.mm.yyyy]',
       });
     }
     next();

@@ -37,6 +37,7 @@ const _getContactsById = async (req, res, next) => {
     next(e);
   }
 };
+
 const _addContact = async (req, res, next) => {
   try {
     if (!req.body.name)
@@ -49,6 +50,7 @@ const _addContact = async (req, res, next) => {
     next(e);
   }
 };
+
 const _deleteContact = async (req, res, next) => {
   try {
     if (!(await getContactsById(req.user.id, req.params.id)))
