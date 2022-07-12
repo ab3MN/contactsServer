@@ -103,8 +103,13 @@ const _updateStatusContact = async (req, res, next) => {
 const _updateAvatarContact = async (req, res, next) => {
   try {
     const { path: img, filename } = req.file;
-    const avatarsUrl = await updateContactAvatar(req.user.id, img, filename);
-    res.send(avatarsUrl);
+    const contact = await updateContactAvatar(
+      req.params.id,
+      req.user.id,
+      img,
+      filename
+    );
+    res.send(contact);
   } catch (e) {
     next(e);
   }

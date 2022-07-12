@@ -28,7 +28,7 @@ router.get('/activate/:link', _activate);
 
 /* Avatar Subcription */
 router.patch('/avatar', getUserByToken);
-router.patch('/avatar', uploadAvatar.single('avatar'), _updateUserAvatar);
+router.patch('/avatar', uploadAvatar, _updateUserAvatar);
 
 router.patch('/subscription', getUserByToken);
 router.patch('/subscription', jsonParser, _updateSubscription);

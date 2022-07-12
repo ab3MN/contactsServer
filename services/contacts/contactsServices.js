@@ -40,16 +40,21 @@ const updateStatusContactFavorite = async (owner, _id, favorite) =>
     { returnDocument: 'after' }
   );
 
-const updateContactAvatar = async (_id, avatarPath, name) => {
+const updateContactAvatar = async (_id, owner, avatarPath, name) => {
   try {
-    const avatarsUrl = getAvatarPath(avatarPath, '/contact/avatars/', name);
+    const avatarsUrl = await getAvatarPath(
+      avatarPath,
+      '/contact/avatars/',
+      name
+    );
 
-    await ContactModel.findOneAndUpdate(
-      { _id },
+    const contact = await ContactModel.findOneAndUpdate(
+      { _id, owner },
       { $set: { ...avatarsUrl } },
       { returnDocument: 'after' }
     );
-    return avatarsUrl;
+
+    return contact;
   } catch {
     throw new Error('Update Avatar with some base errors');
   }

@@ -27,10 +27,6 @@ router.delete('/:id', _deleteContact);
 
 router.patch('/:id/favorite', _updateStatusContact);
 
-router.patch(
-  '/:id/avatar',
-  uploadAvatar.single('avatar'),
-  _updateAvatarContact
-);
+router.patch('/:id/avatar', uploadAvatar, _updateAvatarContact);
 
 module.exports = router;

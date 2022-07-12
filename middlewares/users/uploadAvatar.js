@@ -20,20 +20,21 @@ const storage = multer.diskStorage({
 });
 
 const types = [
-  'apng',
-  'avif',
-  'gif',
-  'jpg',
-  'jpeg',
-  'jfif',
-  'pjpeg',
-  'pjp',
-  'png',
-  'svg',
-  'webp',
+  'image/jpeg',
+  'image/png',
+  'image/svg+xml',
+  'image/webp',
+  'image/gif',
+  'image/vnd.mozilla.apng',
+  'image/avif',
+  'image/pjpeg',
+  'image/x-citrix-jpeg',
+  'image/jp2',
+  'image/jpx',
+  'image/jpm',
 ];
 
 const fileFilter = (req, file, cb) =>
-  types.includes(file.mimetype.slice(6)) ? cb(null, true) : cb(null, false);
+  types.includes(file.mimetype) ? cb(null, true) : cb(null, false);
 
-module.exports = multer({ storage, fileFilter });
+module.exports = multer({ storage, fileFilter }).single('avatar');

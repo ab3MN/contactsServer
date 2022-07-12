@@ -4,7 +4,6 @@ const path = require('path');
 module.exports = {
   getAvatarPath: async (img, avatarPath, name) => {
     try {
-      console.log({ img, avatarPath, name });
       const _img = await Jimp.read(img);
       _img
         .resize(250, 250)
@@ -19,11 +18,13 @@ module.exports = {
           path.join(__dirname, '../public' + avatarPath) + 'Small_' + name
         );
       return {
-        largerAvatarURL: avatarPath + 'Large_' + name,
-        smallAvatarURL: avatarPath + 'Small_' + name,
+        largeAvatarURL:
+          'http://localhost:' + process.env.PORT + avatarPath + 'Large_' + name,
+        smallAvatarURL:
+          'http://localhost:' + process.env.PORT + avatarPath + 'Small_' + name,
       };
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   },
 };

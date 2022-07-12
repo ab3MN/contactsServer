@@ -27,6 +27,7 @@ app.use('/users', require('./routes/api/usersRouter'));
 app.use('/tasks', require('./routes/api/tasksRouter'));
 app.use('/datebooks', require('./routes/api/dateBooksRouter'));
 app.use('/quote', require('./routes/api/quoteRouter'));
+app.use('/books', require('./routes/api/booksRouter'));
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Not found' });
