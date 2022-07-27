@@ -16,7 +16,7 @@ module.exports = {
   },
 
   statusError: (req, res, next) => {
-    if (!req.body.isCompleted)
+    if (typeof req.body.isCompleted !== 'boolean')
       return res.status(400).json({ message: 'missing field isCompleted' });
     else if (typeof req.body?.isCompleted !== 'boolean')
       return res

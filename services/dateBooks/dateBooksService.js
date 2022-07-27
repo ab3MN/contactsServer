@@ -1,6 +1,6 @@
 const { DateBooksModel } = require('./dateBooksModel');
 
-const getDateBooks = async (owner) => await DateBooksModel.findOne({ owner });
+const getDateBooks = async (owner) => await DateBooksModel.find({ owner });
 
 const getDateBookById = async (owner, _id) =>
   await DateBooksModel.findOne({ owner, _id });

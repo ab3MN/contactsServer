@@ -28,6 +28,8 @@ app.use('/tasks', require('./routes/api/tasksRouter'));
 app.use('/datebooks', require('./routes/api/dateBooksRouter'));
 app.use('/quote', require('./routes/api/quoteRouter'));
 app.use('/books', require('./routes/api/booksRouter'));
+app.use('/weather', require('./routes/api/weatherRouter'));
+app.use('/news', require('./routes/api/newsRouter'));
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Not found' });
