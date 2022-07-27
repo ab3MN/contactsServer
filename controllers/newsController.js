@@ -3,7 +3,7 @@ const { getCurrentDate } = require('../helpers/getCurrentDate');
 
 const getNews = async (req, res, next) => {
   try {
-    const { q } = req.body;
+    const { q } = req.query;
     const currentDate = getCurrentDate().split('.').reverse().join('-');
 
     const { data } = await axios.get(

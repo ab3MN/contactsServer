@@ -3,7 +3,7 @@ const chekingNumbers = require('../helpers/chekingNumbers');
 
 const getWeatherByLocationName = async (req, res, next) => {
   try {
-    const { location } = req.body;
+    const { location } = req.query;
     const weather = await axios.get(
       process.env.WEATHER_URL +
         `?q=${location}&appid=${process.env.WEATHER_KEY}`
@@ -16,7 +16,7 @@ const getWeatherByLocationName = async (req, res, next) => {
 
 const getWeatherByCoords = async (req, res, next) => {
   try {
-    const { lat, lon } = req.body;
+    const { lat, lon } = req.query;
     const _lan = chekingNumbers(lat, -90, 90);
     const _lon = chekingNumbers(lon, -180, 180);
     (_lan || _lon) &&
