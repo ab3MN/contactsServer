@@ -6,7 +6,7 @@ const {
   updateUserAvatar,
 } = require('../services/users/usersService');
 const { getUserWithToken } = require('../middlewares/users/getUserWithToken');
-const { sendActivationMail } = require('../services/mail/mailService');
+// const { sendActivationMail } = require('../services/mail/mailService');
 
 const _signUp = async (req, res, next) => {
   try {
@@ -18,11 +18,10 @@ const _signUp = async (req, res, next) => {
 
     const userWithTokens = await getUserWithToken(res, user);
 
-    await sendActivationMail(
-      req.body.email,
-      `${process.env.API_URL}/users/activate/${activationLink}`
-    );
-
+    // await sendActivationMail(
+    //   req.body.email,
+    //   `${process.env.API_URL}/users/activate/${activationLink}`
+    // );
     return res.send({
       ...userWithTokens,
     });
