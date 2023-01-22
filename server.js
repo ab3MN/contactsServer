@@ -1,12 +1,11 @@
 const app = require('./app');
 const mongoose = require('mongoose');
 
-const url = process.env.MONGO_URI || process.env.DB_URL;
 const PORT = process.env.PORT || 5000;
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(url);
+    const conn = await mongoose.connect(process.env.MONGO_URI);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.log(error);
