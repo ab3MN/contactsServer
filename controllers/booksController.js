@@ -1,7 +1,7 @@
 const {
   addBook,
   getBooks,
-  // getBookByName,
+  getBookByName,
   updateBookStatus,
 } = require('../services/books/booksService');
 
@@ -24,10 +24,10 @@ const _addBook = async (req, res, next) => {
     _name.pop();
     const name = _name.join('.');
 
-    // const existBook = await getBookByName(req.user.id, name);
-    // if (existBook) {
-    //   return res.status(409).json({ message: 'The book already exists' });
-    // }
+    const existBook = await getBookByName(req.user.id, name);
+    if (existBook) {
+      return res.status(409).json({ message: 'The book already exists' });
+    }
 
     const book = await addBook(req.user.id, { filePath, name });
     book.save();

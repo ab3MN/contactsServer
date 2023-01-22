@@ -1,6 +1,6 @@
 const app = require('./app');
 
-const url = process.env.MONGODB_URI || process.env.DB_URL;
+const url = process.env.DB_URL;
 (() => {
   try {
     require('mongoose').connect(url, {
