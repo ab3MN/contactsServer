@@ -14,9 +14,9 @@ const storage = multer.diskStorage({
     );
   },
 
-  // limits: {
-  //   fileSize: 2048,
-  // },
+  limits: {
+    fileSize: 2048,
+  },
 });
 
 const types = [

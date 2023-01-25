@@ -40,7 +40,6 @@ const _activate = async (req, res, next) => {
 };
 const _login = async (req, res, next) => {
   try {
-    console.log(req.body);
     const user = await login(req.body);
     const userWithTokens = await getUserWithToken(res, user);
 

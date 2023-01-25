@@ -25,7 +25,7 @@ const _addBook = async (req, res, next) => {
     const name = _name.join('.');
 
     const existBook = await getBookByName(req.user.id, name);
-    if (existBook) {
+    if (existBook.length !== 0) {
       return res.status(409).json({ message: 'The book already exists' });
     }
 
