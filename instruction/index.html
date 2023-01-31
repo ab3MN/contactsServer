@@ -179,12 +179,17 @@
             ><span class="button__span">/users/signup</span>
           </div>
           <ul>
+            <h4>await email password</h4>
             <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
+              if no email or password <b>return</b> <span>status 409 </span>
             </li>
             <li>
-              if authorization <b>return</b>
-              <span>status 201 + Array[Task]</span>
+              if email in use <b>return</b>
+              <span>status 409 </span>
+            </li>
+            <li>
+              if OK <b>return</b> <span>status 200</span> + User + accessToken +
+              refreshToken
             </li>
           </ul>
         </article>
@@ -195,12 +200,13 @@
             ><span class="button__span">/users/login</span>
           </div>
           <ul>
+            <h4>await email password</h4>
             <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
+              if wrong email or password <b>return</b> <span>status 401 </span>
             </li>
             <li>
-              if authorization <b>return</b>
-              <span>status 201 + Array[Task]</span>
+              if OK<b> return</b> <span>status 200</span> + User + accessToken +
+              refreshToken
             </li>
           </ul>
         </article>
@@ -211,13 +217,9 @@
             ><span class="button__span">/users/auth</span>
           </div>
           <ul>
-            <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
-            <li>
-              if authorization <b>return</b>
-              <span>status 201 + Array[Task]</span>
-            </li>
+            <h4>await token</h4>
+            <li>if wrong token <b>return</b> <span>status 401 </span></li>
+            <li>if Ok <b>return</b> <span>status 200</span> + User</li>
           </ul>
         </article>
         <!---------------------- LOG OUT --------------------->
@@ -227,12 +229,11 @@
             ><span class="button__span">/users/logout</span>
           </div>
           <ul>
+            <h4>await token</h4>
+            <li>if wrong token <b>return</b> <span>status 401 </span></li>
             <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
-            <li>
-              if authorization <b>return</b>
-              <span>status 201 + Array[Task]</span>
+              if OK <b>return</b>
+              <span>status 204</span>
             </li>
           </ul>
         </article>
@@ -243,12 +244,18 @@
             ><span class="button__span">/users/avatar</span>
           </div>
           <ul>
+            <h4>
+              await token avatar
+              <span style="color: rgb(9, 22, 202)">
+                [ 'jpeg', 'png', 'svg+xml', 'webp', 'gif', 'avif', 'pjpeg',
+                'jp2', 'jpx','jpm']</span
+              >
+            </h4>
+            <li>if wrong token <b>return</b> <span>status 401 </span></li>
+            <li>if wrong format <b>return</b> <span>status 500 </span></li>
             <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
-            <li>
-              if authorization <b>return</b>
-              <span>status 201 + Array[Task]</span>
+              if Ok <b>return</b> <span>status 200 </span>+ largeAvatarURL +
+              smallAvatarURL
             </li>
           </ul>
         </article>
@@ -259,13 +266,13 @@
             ><span class="button__span">/users/subscription</span>
           </div>
           <ul>
+            <h4>await token subscription</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
+              if wrong subscription <b>return</b>
+              <span>status 400</span>
             </li>
-            <li>
-              if authorization <b>return</b>
-              <span>status 201 + Array[Task]</span>
-            </li>
+            <li>if OK <b>return</b> <span>status 200</span> + User</li>
           </ul>
         </article>
       </div>
@@ -297,13 +304,9 @@
           </div>
 
           <ul>
-            <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
-            <li>
-              if authorization <b>return</b>
-              <span>status 201 + Array[Task]</span>
-            </li>
+            <h4>await token</h4>
+            <li>if wrong toke <b>return</b> <span>status 403 </span></li>
+            <li>if OK <b>return</b> <span>status 200 </span>+ Array[Task]</li>
           </ul>
         </article>
         <!---------------------- ADD TASK --------------------->
@@ -313,10 +316,8 @@
             ><span class="button__span">/tasks</span>
           </div>
           <ul>
-            <h4>await Task</h4>
-            <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
+            <h4>await token,Task</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>
               if start or finish not avaible format <b>return</b>
               <span>status 400 </span>
@@ -325,7 +326,7 @@
               if no titile,text,start or finish <b>return</b>
               <span>status 400</span>
             </li>
-            <li>if Ok <b>return</b> <span>status 201 + task</span></li>
+            <li>if Ok <b>return</b> <span>status 201 </span>+ task</li>
           </ul>
         </article>
         <!---------------------- UPDATE TASK STATUS--------------------->
@@ -336,13 +337,11 @@
           </div>
 
           <ul>
-            <h4>await user.id,task,id and task.status.</h4>
-            <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
+            <h4>await token,task,id,status</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>if didn't find task <b>return</b> <span>status 404 </span></li>
             <li>if no isCompleted <b>return</b> <span>status 404</span></li>
-            <li>if Ok <b>return</b> <span>status 201 + task</span></li>
+            <li>if Ok <b>return</b> <span>status 201</span> + task</li>
           </ul>
         </article>
         <!---------------------- UPDATE TASK FINISH DATE--------------------->
@@ -353,13 +352,11 @@
           </div>
 
           <ul>
-            <h4>await user.id,task,id and task.status.</h4>
-            <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
+            <h4>await token,id,status</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>if didn't find task <b>return</b> <span>status 404 </span></li>
             <li>if no isCompleted <b>return</b> <span>status 404</span></li>
-            <li>if Ok <b>return</b> <span>status 201 + task</span></li>
+            <li>if Ok <b>return</b> <span>status 201 </span>+ task</li>
           </ul>
         </article>
         <!---------------------- DELETE TASK --------------------->
@@ -370,10 +367,8 @@
           </div>
 
           <ul>
-            <h4>await user.id,task,id</h4>
-            <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
+            <h4>await token,task,id</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>if didn't find task <b>return</b> <span>status 404 </span></li>
             <li>if Ok <b>return</b> <span>status 200</span></li>
           </ul>
@@ -402,7 +397,7 @@
           <ul>
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>
-              if OK <b>return</b> <span>status 201 + Array[Contact]</span>
+              if OK <b>return</b> <span>status 200 </span>+ Array[Contact]
             </li>
           </ul>
         </article>
@@ -413,16 +408,13 @@
             ><span class="button__span">/contacts/:id</span>
           </div>
           <ul>
-            <h4>await token contact.id</h4>
+            <h4>await token, id</h4>
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>
-              if wrong contact.id <b>return</b>
+              if wrong id <b>return</b>
               <span>status 404 </span>
             </li>
-            <li>
-              if OK <b>return</b>
-              <span>status 201 + Contact</span>
-            </li>
+            <li>if OK <b>return</b> <span>status 200 </span>+ Contact</li>
           </ul>
         </article>
         <!---------------------- ADD CONTACT --------------------->
@@ -432,26 +424,24 @@
             ><span class="button__span">/contacts</span>
           </div>
           <ul>
-            <h4>await token,contact.name</h4>
-            <li>if wrong toke <b>return</b> <span>status 403 </span></li>
-            <li>if wrong contact.id <b>return</b> <span>status 404 </span></li>
-            <li>if Ok <b>return</b> <span>status 201 + contact</span></li>
+            <h4>await token, name</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong name <b>return</b> <span>status 404 </span></li>
+            <li>if Ok <b>return</b> <span>status 201 </span>+ contact</li>
           </ul>
         </article>
         <!---------------------- UPDATE CONTACT --------------------->
         <article>
           <div>
             <button id="ul_button" class="put__btn">put</button
-            ><span class="button__span">/tasks/:id/finish</span>
+            ><span class="button__span">/contacts/:id</span>
           </div>
 
           <ul>
-            <h4>await user.id,contact.id contact</h4>
-            <li>
-              if didn't authorization <b>return</b> <span>status 403 </span>
-            </li>
-            <li>if wrong contact.id <b>return</b> <span>status 404 </span></li>
-            <li>if Ok <b>return</b> <span>status 201 + contact</span></li>
+            <h4>await token, id contact</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong id <b>return</b> <span>status 404 </span></li>
+            <li>if Ok <b>return</b> <span>status 201 </span>+ contact</li>
           </ul>
         </article>
         <!---------------------- UPDATE CONTACT STATUS--------------------->
@@ -462,13 +452,11 @@
           </div>
 
           <ul>
-            <h4>await token,contact.id,contact.favorite'</h4>
+            <h4>await token,id,favorite</h4>
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
-            <li>if wrong contact.id <b>return</b> <span>status 404 </span></li>
-            <li>
-              if no contact.favorite <b>return</b> <span>status 400 </span>
-            </li>
-            <li>if Ok <b>return</b> <span>status 201 + Contact</span></li>
+            <li>if wrong id <b>return</b> <span>status 404 </span></li>
+            <li>if no favorite <b>return</b> <span>status 400 </span></li>
+            <li>if Ok <b>return</b> <span>status 201 </span>+ Contact</li>
           </ul>
         </article>
         <!---------------------- UPDATE CONTACT AVATAR--------------------->
@@ -480,21 +468,21 @@
 
           <ul>
             <h4>
-              await token,task.id,avatar
+              await token,id,avatar
               <span style="color: rgb(9, 22, 202)">
                 [ 'jpeg', 'png', 'svg+xml', 'webp', 'gif', 'avif', 'pjpeg',
                 'jp2', 'jpx','jpm']</span
               >
             </h4>
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
-            <li>if wrong task.id <b>return</b> <span>status 404 </span></li>
+            <li>if wrong id <b>return</b> <span>status 404 </span></li>
             <li>
               if wrong avatar format <b>return</b> <span>status 400 </span>
             </li>
 
             <li>
-              if Ok <b>return</b>
-              <span>status largeAvatarURL+smallAvatarURL</span>
+              if Ok <b>return</b> <span>status 200 </span> + largeAvatarURL +
+              smallAvatarURL
             </li>
           </ul>
         </article>
@@ -506,9 +494,9 @@
           </div>
 
           <ul>
-            <h4>await token,task,id</h4>
+            <h4>await token,id</h4>
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
-            <li>if wrong task.id <b>return</b> <span>status 404 </span></li>
+            <li>if wrong id <b>return</b> <span>status 404 </span></li>
             <li>if Ok <b>return</b> <span>status 200</span></li>
           </ul>
         </article>
@@ -530,7 +518,9 @@
             <span class="button__span"> /quote</span>
           </div>
           <ul>
-            <li>if OK <b>return</b> <span>status 201 + quote</span></li>
+            <h4>await token</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if OK <b>return</b> <span>status 200 </span>+ quote</li>
           </ul>
         </article>
       </div>
@@ -558,7 +548,7 @@
 
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
             <li>
-              if OK <b>return</b> <span>status 201 + all date books</span>
+              if OK <b>return</b> <span>status 200 </span>+ all date books
             </li>
           </ul>
         </article>
@@ -569,11 +559,11 @@
             <span class="button__span"> /datebooks/:id</span>
           </div>
           <ul>
-            <h4>await token dateBook.id</h4>
+            <h4>await token id</h4>
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
-            <li>if wrong datebook id <b>return</b> <span>status 404 </span></li>
+            <li>if wrong id <b>return</b> <span>status 404 </span></li>
             <li>
-              if OK <b>return</b> <span>status 201 + current date book</span>
+              if OK <b>return</b> <span>status 200 </span>+ current date book
             </li>
           </ul>
         </article>
@@ -584,12 +574,12 @@
             <span class="button__span"> /datebooks</span>
           </div>
           <ul>
-            <h4>await token dateBook.text dateBook.data</h4>
+            <h4>await token text data</h4>
             <li>if wrong token <b>returns</b> <span>status 403 </span></li>
             <li>if no text <b>return</b> <span>status 400 </span></li>
             <li>if wrong data format <b>return</b> <span>status 400</span></li>
             <li>
-              if OK <b>return</b> <span>status 201 + current date book</span>
+              if OK <b>return</b> <span>status 201 </span>+ current date book
             </li>
           </ul>
         </article>
@@ -600,12 +590,12 @@
             <span class="button__span"> /datebooks/:id</span>
           </div>
           <ul>
-            <h4>await token dateBook.id dateBook.text</h4>
+            <h4>await token id text</h4>
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
-            <li>if wrong dateBook.id <b>return</b> <span>status 404 </span></li>
+            <li>if wrong id <b>return</b> <span>status 404 </span></li>
             <li>if no text <b>return</b> <span>status 400 </span></li>
             <li>
-              if OK <b>return</b> <span>status 201 + update date book</span>
+              if OK <b>return</b> <span>status 201 </span>+ update date book
             </li>
           </ul>
         </article>
@@ -638,7 +628,7 @@
             <h4>await token</h4>
 
             <li>if wrong token <b>return</b> <span>status 403 </span></li>
-            <li>if OK <b>return</b> <span>status 201 + all books</span></li>
+            <li>if OK <b>return</b> <span>status 201 </span>+ all books</li>
           </ul>
         </article>
         <!---------------------- UPLOAD BOOK  --------------------->
@@ -660,7 +650,7 @@
               if wrong file's format <b>return</b> <span>status 400 </span>
             </li>
             <li>if book exist <b>return</b> <span>status 409 </span></li>
-            <li>if OK <b>return</b> <span>status 201 + current book</span></li>
+            <li>if OK <b>return</b> <span>status 201 </span>+ current book</li>
           </ul>
         </article>
         <!---------------------- UPDATE BOOK STATUS  --------------------->
@@ -670,14 +660,14 @@
             <span class="button__span"> /books//:id/completed</span>
           </div>
           <ul>
-            <h4>await token book.id book.isCompleted</h4>
+            <h4>await token id isCompleted</h4>
             <li>if dwrong token <b>return</b> <span>status 403 </span></li>
-            <li>if wrong book.id <b>return</b> <span>status 404 </span></li>
+            <li>if wrong id <b>return</b> <span>status 404 </span></li>
             <li>
-              if wrong type of book.isCompleted <b>return</b>
+              if wrong type of isCompleted <b>return</b>
               <span>status 415</span>
             </li>
-            <li>if OK <b>return</b> <span>status 201 + current book</span></li>
+            <li>if OK <b>return</b> <span>status 201 </span>+ current book</li>
           </ul>
         </article>
       </div>
@@ -710,7 +700,8 @@
           <ul>
             <h4>await querry</h4>
             <li>if bad querry <b>return</b> <span>status 400</span></li>
-            <li>if OK <b>return</b> <span>status 200 + all news</span></li>
+
+            <li>if OK <b>return</b> <span>status 200 </span>+ all news</li>
           </ul>
         </article>
       </div>
@@ -759,7 +750,7 @@
           <ul>
             <h4>await location</h4>
             <li>if wrong location <b>return</b> <span>status 500 </span></li>
-            <li>if OK <b>return</b> <span>status 200 + weather </span></li>
+            <li>if OK <b>return</b> <span>status 200 </span>+ weather</li>
           </ul>
         </article>
         <!---------------------- GET BY COORDTS--------------------->
@@ -773,14 +764,13 @@
           <ul>
             <h4>await lat,lon</h4>
             <li>if wrong location <b>return</b> <span>status 500 </span></li>
-            <li>if OK <b>return</b> <span>status 200 + weather </span></li>
+            <li>if OK <b>return</b> <span>status 200 </span>+ weather</li>
           </ul>
         </article>
       </div>
     </section>
 
     <script>
-      'use strickt';
       document.querySelectorAll('[id=button]').forEach(
         (el) =>
           (el.onclick = () => {

@@ -77,12 +77,14 @@ const _logOut = async (req, res, next) => {
 const _updateSubscription = async (req, res, next) => {
   try {
     let user;
+
     if (req.user) {
-      user = await updateSubscription(req.user._user.id, req.body.subscription);
-    } else if (typeof user === 'string') {
-      res.status(401).json({ message: user });
+      user = await updateSubscription(req.user.id, req.body.subscription);
     }
-    return res.send(require('../helpers/userDto').userDto(user));
+
+    return typeof user === 'string'
+      ? res.status(400).json({ message: user })
+      : res.send(require('../helpers/userDto').userDto(user));
   } catch (e) {
     next(e);
   }
