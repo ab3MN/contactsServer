@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        min-width: 1000px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+        box-sizing: inherit;
+        line-height: 1.2;
+      }
+
+      li {
+        list-style-type: none;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+        padding: 0;
+      }
+
+      button {
+        width: 80px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        height: 28px;
+        border: none;
+        color: white;
+        font-size: 20px;
+      }
+
+      button:hover,
+      :focus {
+        cursor: pointer;
+      }
+
+      section {
+        margin-bottom: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      section article ul {
+        display: none;
+      }
+
+      section ul h4 {
+        padding-left: 20px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      section ul li {
+        padding-bottom: 5px;
+      }
+
+      section ul li span {
+        text-transform: uppercase;
+        color: rgb(9, 22, 202);
+      }
+
+      section ul li b {
+        font-size: 18px;
+      }
+
+      .button__span {
+        font-style: italic;
+      }
+
+      .section__box {
+        display: none;
+      }
+
+      .section__title--button {
+        background-color: rgb(42, 196, 55);
+        width: 300px;
+        height: 40px;
+        display: block;
+        margin: 20px auto;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      h1,
+      h4 {
+        text-align: center;
+      }
+
+      .model {
+        width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .model li {
+        width: 300px;
+        padding-bottom: 10px;
+      }
+
+      h1 {
+        margin-top: 20px;
+      }
+
+      body:last-child {
+        margin-bottom: 40px;
+      }
+
+      .get__btn {
+        background-color: rgb(93, 93, 236);
+        color: white;
+      }
+
+      .post__btn {
+        background-color: rgb(42, 196, 55);
+      }
+
+      .patch__btn {
+        background-color: rgb(216, 216, 70);
+      }
+
+      .delete__btn {
+        background-color: rgb(218, 69, 69);
+      }
+      .put__btn {
+        background-color: coral;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Instruction</h1>
+    <h4 style="font-style: italic">https://brainy-tutu.cyclic.app</h4>
+    <!---------------------- USER --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">Authorization</button>
+
+      <div class="section__box">
+        <ul class="model">
+          <h4>User model:</h4>
+          <li><b class="model__title"> password:</b> String <b>required</b></li>
+          <li><b class="model__title"> email:</b> String <b>required</b></li>
+          <li>
+            <b class="model__title">subscription: </b> String <br />
+            <b>enum: </b> ['starter', 'pro', 'business']
+            <br />
+            <b>default: </b>'starter'
+          </li>
+          <li>
+            <b> largerAvatarURL:</b>
+            String
+            <br /><b>default:</b>img size 250px
+          </li>
+          <li>
+            <b> smallAvatarURL:</b>
+            String
+            <br /><b>default:</b>img size 80px
+          </li>
+          <li><b> isActivated:</b> Boolean <br /><b>default:</b> false</li>
+          <li><b> activationLink:</b> String <br /><b>default:</b> ''</li>
+          <li><b> role:</b> String <br /><b>default:</b> 'user'</li>
+        </ul>
+        <!---------------------- SIGN UP --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button
+            ><span class="button__span">/users/signup</span>
+          </div>
+          <ul>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if authorization <b>return</b>
+              <span>status 201 + Array[Task]</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- LOG IN --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button
+            ><span class="button__span">/users/login</span>
+          </div>
+          <ul>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if authorization <b>return</b>
+              <span>status 201 + Array[Task]</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- AUTH --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button
+            ><span class="button__span">/users/auth</span>
+          </div>
+          <ul>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if authorization <b>return</b>
+              <span>status 201 + Array[Task]</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- LOG OUT --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button
+            ><span class="button__span">/users/logout</span>
+          </div>
+          <ul>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if authorization <b>return</b>
+              <span>status 201 + Array[Task]</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- AVATAR --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button
+            ><span class="button__span">/users/avatar</span>
+          </div>
+          <ul>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if authorization <b>return</b>
+              <span>status 201 + Array[Task]</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- SUBSCRIPTION --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button
+            ><span class="button__span">/users/subscription</span>
+          </div>
+          <ul>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if authorization <b>return</b>
+              <span>status 201 + Array[Task]</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <!---------------------- TASKS --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">Tasks</button>
+
+      <div class="section__box">
+        <ul class="model">
+          <h4>Task model:</h4>
+          <li><b> title:</b> String <b>required</b></li>
+          <li><b> text:</b> String <b>required</b></li>
+          <li>
+            <b> start:</b> String <b>required</b> <br /><b>format:</b
+            >[dd/mm/yyyy, dd-mm-yyyy,dd.mm.yyyy]
+          </li>
+          <li>
+            <b> finish:</b> String <b>required</b> <br /><b>format:</b
+            >[dd/mm/yyyy, dd-mm-yyyy,dd.mm.yyyy]
+          </li>
+          <li><b> isCompleted:</b> Boolean <br /><b>default:</b> false</li>
+        </ul>
+        <!---------------------- GET ALL TASKS --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /tasks</span>
+          </div>
+
+          <ul>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if authorization <b>return</b>
+              <span>status 201 + Array[Task]</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- ADD TASK --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button
+            ><span class="button__span">/tasks</span>
+          </div>
+          <ul>
+            <h4>await Task</h4>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>
+              if start or finish not avaible format <b>return</b>
+              <span>status 400 </span>
+            </li>
+            <li>
+              if no titile,text,start or finish <b>return</b>
+              <span>status 400</span>
+            </li>
+            <li>if Ok <b>return</b> <span>status 201 + task</span></li>
+          </ul>
+        </article>
+        <!---------------------- UPDATE TASK STATUS--------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button
+            ><span class="button__span">/tasks/:id/iscompleted</span>
+          </div>
+
+          <ul>
+            <h4>await user.id,task,id and task.status.</h4>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>if didn't find task <b>return</b> <span>status 404 </span></li>
+            <li>if no isCompleted <b>return</b> <span>status 404</span></li>
+            <li>if Ok <b>return</b> <span>status 201 + task</span></li>
+          </ul>
+        </article>
+        <!---------------------- UPDATE TASK FINISH DATE--------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button
+            ><span class="button__span">/tasks/:id/finish</span>
+          </div>
+
+          <ul>
+            <h4>await user.id,task,id and task.status.</h4>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>if didn't find task <b>return</b> <span>status 404 </span></li>
+            <li>if no isCompleted <b>return</b> <span>status 404</span></li>
+            <li>if Ok <b>return</b> <span>status 201 + task</span></li>
+          </ul>
+        </article>
+        <!---------------------- DELETE TASK --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="delete__btn">delete</button
+            ><span class="button__span">/tasks/:id</span>
+          </div>
+
+          <ul>
+            <h4>await user.id,task,id</h4>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>if didn't find task <b>return</b> <span>status 404 </span></li>
+            <li>if Ok <b>return</b> <span>status 200</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <!---------------------- CONTACTS --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">Contacts</button>
+      <div class="section__box">
+        <ul class="model">
+          <h4>Contact model:</h4>
+          <li><b> name: </b> String <b>required</b></li>
+          <li><b> email: </b> String</li>
+          <li><b> phone:</b> String</li>
+          <li><b> favorite: </b> Boolean <br /><b>default:</b> false</li>
+          <li><b> largeAvatarURL: </b> String</li>
+          <li><b> smallAvatarURL: : </b> String</li>
+        </ul>
+        <!---------------------- GET ALL --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /contacts</span>
+          </div>
+          <ul>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>
+              if OK <b>return</b> <span>status 201 + Array[Contact]</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- GET BY ID --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button
+            ><span class="button__span">/contacts/:id</span>
+          </div>
+          <ul>
+            <h4>await token contact.id</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>
+              if wrong contact.id <b>return</b>
+              <span>status 404 </span>
+            </li>
+            <li>
+              if OK <b>return</b>
+              <span>status 201 + Contact</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- ADD CONTACT --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button
+            ><span class="button__span">/contacts</span>
+          </div>
+          <ul>
+            <h4>await token,contact.name</h4>
+            <li>if wrong toke <b>return</b> <span>status 403 </span></li>
+            <li>if wrong contact.id <b>return</b> <span>status 404 </span></li>
+            <li>if Ok <b>return</b> <span>status 201 + contact</span></li>
+          </ul>
+        </article>
+        <!---------------------- UPDATE CONTACT --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="put__btn">put</button
+            ><span class="button__span">/tasks/:id/finish</span>
+          </div>
+
+          <ul>
+            <h4>await user.id,contact.id contact</h4>
+            <li>
+              if didn't authorization <b>return</b> <span>status 403 </span>
+            </li>
+            <li>if wrong contact.id <b>return</b> <span>status 404 </span></li>
+            <li>if Ok <b>return</b> <span>status 201 + contact</span></li>
+          </ul>
+        </article>
+        <!---------------------- UPDATE CONTACT STATUS--------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button
+            ><span class="button__span">/contacts/:id/favorite</span>
+          </div>
+
+          <ul>
+            <h4>await token,contact.id,contact.favorite'</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong contact.id <b>return</b> <span>status 404 </span></li>
+            <li>
+              if no contact.favorite <b>return</b> <span>status 400 </span>
+            </li>
+            <li>if Ok <b>return</b> <span>status 201 + Contact</span></li>
+          </ul>
+        </article>
+        <!---------------------- UPDATE CONTACT AVATAR--------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button
+            ><span class="button__span">/contacts/:id/avatar</span>
+          </div>
+
+          <ul>
+            <h4>
+              await token,task.id,avatar
+              <span style="color: rgb(9, 22, 202)">
+                [ 'jpeg', 'png', 'svg+xml', 'webp', 'gif', 'avif', 'pjpeg',
+                'jp2', 'jpx','jpm']</span
+              >
+            </h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong task.id <b>return</b> <span>status 404 </span></li>
+            <li>
+              if wrong avatar format <b>return</b> <span>status 400 </span>
+            </li>
+
+            <li>
+              if Ok <b>return</b>
+              <span>status largeAvatarURL+smallAvatarURL</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- DELETE CONTACT --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="delete__btn">delete</button
+            ><span class="button__span">/tasks/:id</span>
+          </div>
+
+          <ul>
+            <h4>await token,task,id</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong task.id <b>return</b> <span>status 404 </span></li>
+            <li>if Ok <b>return</b> <span>status 200</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <!---------------------- QUOTE --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">QUOTE</button>
+      <div class="section__box">
+        <ul class="model">
+          <h4>Quote model:</h4>
+          <li><b> text: </b> String <b>required</b></li>
+          <li><b> from: </b> String</li>
+        </ul>
+        <!---------------------- GET  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /quote</span>
+          </div>
+          <ul>
+            <li>if OK <b>return</b> <span>status 201 + quote</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <!---------------------- DATE BOOK --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">DATE BOOK</button>
+      <div class="section__box">
+        <ul class="model">
+          <h4>Date book model:</h4>
+          <li>
+            <b> date: </b> String <br />
+            <b>default: </b>Current date
+          </li>
+          <li><b> text: </b> String <b>required</b></li>
+        </ul>
+        <!---------------------- GET  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /datebooks</span>
+          </div>
+          <ul>
+            <h4>await token</h4>
+
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>
+              if OK <b>return</b> <span>status 201 + all date books</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- GET CURRENT DATE BOOK  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /datebooks/:id</span>
+          </div>
+          <ul>
+            <h4>await token dateBook.id</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong datebook id <b>return</b> <span>status 404 </span></li>
+            <li>
+              if OK <b>return</b> <span>status 201 + current date book</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- POST CURRENT DATE BOOK  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button>
+            <span class="button__span"> /datebooks</span>
+          </div>
+          <ul>
+            <h4>await token dateBook.text dateBook.data</h4>
+            <li>if wrong token <b>returns</b> <span>status 403 </span></li>
+            <li>if no text <b>return</b> <span>status 400 </span></li>
+            <li>if wrong data format <b>return</b> <span>status 400</span></li>
+            <li>
+              if OK <b>return</b> <span>status 201 + current date book</span>
+            </li>
+          </ul>
+        </article>
+        <!---------------------- UPDATE CURRENT DATE BOOK  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button>
+            <span class="button__span"> /datebooks/:id</span>
+          </div>
+          <ul>
+            <h4>await token dateBook.id dateBook.text</h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong dateBook.id <b>return</b> <span>status 404 </span></li>
+            <li>if no text <b>return</b> <span>status 400 </span></li>
+            <li>
+              if OK <b>return</b> <span>status 201 + update date book</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!---------------------- BOOKS --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">BOOKS</button>
+      <div class="section__box">
+        <ul class="model">
+          <h4>Book model:</h4>
+          <li>
+            <b> name: </b> String
+            <b>required: </b>
+          </li>
+          <li><b> filePath: </b> String <b>required</b></li>
+          <li>
+            <b> isCompleted: </b> Boolean <b>required</b> <br /><b>default:</b>
+            false
+          </li>
+        </ul>
+        <!---------------------- GET  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /books</span>
+          </div>
+          <ul>
+            <h4>await token</h4>
+
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>if OK <b>return</b> <span>status 201 + all books</span></li>
+          </ul>
+        </article>
+        <!---------------------- UPLOAD BOOK  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="post__btn">post</button>
+            <span class="button__span"> /books</span>
+          </div>
+          <ul>
+            <h4>
+              await token bookFile
+              <span style="color: rgb(9, 22, 202)">
+                [ 'epub', 'ebook', 'pdf', 'text/plain', 'msword',
+                'octet-stream', 'xml', 'fb2', 'adobe',]</span
+              >
+            </h4>
+            <li>if wrong token <b>return</b> <span>status 403 </span></li>
+            <li>
+              if wrong file's format <b>return</b> <span>status 400 </span>
+            </li>
+            <li>if book exist <b>return</b> <span>status 409 </span></li>
+            <li>if OK <b>return</b> <span>status 201 + current book</span></li>
+          </ul>
+        </article>
+        <!---------------------- UPDATE BOOK STATUS  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="patch__btn">patch</button>
+            <span class="button__span"> /books//:id/completed</span>
+          </div>
+          <ul>
+            <h4>await token book.id book.isCompleted</h4>
+            <li>if dwrong token <b>return</b> <span>status 403 </span></li>
+            <li>if wrong book.id <b>return</b> <span>status 404 </span></li>
+            <li>
+              if wrong type of book.isCompleted <b>return</b>
+              <span>status 415</span>
+            </li>
+            <li>if OK <b>return</b> <span>status 201 + current book</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <!---------------------- NEWS --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">NEWS</button>
+      <div class="section__box">
+        <ul class="model">
+          <h4>News model:</h4>
+          <li><b> id: </b> String</li>
+          <li>
+            <b> source: </b> { <b>id: </b>null or string,<b>name: </b>string, }
+          </li>
+          <li><b> author: </b> String</li>
+          <li><b> title: </b> String</li>
+          <li><b> description: </b> String</li>
+          <li><b> url: </b> String</li>
+          <li><b> urlToImage: </b> String</li>
+
+          <li><b> publishedAt: </b> String</li>
+          <li><b> content: </b> String</li>
+        </ul>
+        <!---------------------- GET  --------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /news?q={querry}</span>
+          </div>
+          <ul>
+            <h4>await querry</h4>
+            <li>if bad querry <b>return</b> <span>status 400</span></li>
+            <li>if OK <b>return</b> <span>status 200 + all news</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <!---------------------- WEATHER --------------------->
+    <section id="section">
+      <button id="button" class="section__title--button">WEATHER</button>
+      <div class="section__box">
+        <ul class="model">
+          <h4>WEATHER model:</h4>
+          <li><b> coord: </b> { <b>lon: </b>number,<b>lon: </b>number, }</li>
+          <li>
+            <b> weather: </b> Array[{ <b>id: </b>number,<b>main: </b>string,
+            <b>description: </b>string,<b>icon: </b>string}]
+          </li>
+          <li><b> base: </b>string</li>
+          <li>
+            <b> main: </b> { <b>temp: </b>number,<b>feels_like: </b>number,
+            <b>temp_min: </b>number,<b>temp_max: </b>number,
+            <b>pressure: </b>number,<b>humidity: </b>number }
+          </li>
+          <li><b> visibility: </b>number</li>
+          <li>
+            <b> wind: </b> { <b>speed: </b>number,<b>deg: </b>number,<b
+              >gust: </b
+            >number }
+          </li>
+          <li><b> clouds: </b> { <b>all: </b>number }</li>
+          <li><b> dt: </b> number</li>
+          <li>
+            <b> sys: </b> { <b>type: </b>number,<b>id: </b>number,<b
+              >country: </b
+            >string<b>sunrise: </b>number,<b>sunset: </b>number }
+          </li>
+          <li><b> timezone: </b> number</li>
+          <li><b> id: </b> number</li>
+          <li><b> name: </b> string</li>
+          <li><b> cod: </b> number</li>
+        </ul>
+        <!---------------------- GET BY LOCATION--------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span"> /weather?location={location}</span>
+          </div>
+          <ul>
+            <h4>await location</h4>
+            <li>if wrong location <b>return</b> <span>status 500 </span></li>
+            <li>if OK <b>return</b> <span>status 200 + weather </span></li>
+          </ul>
+        </article>
+        <!---------------------- GET BY COORDTS--------------------->
+        <article>
+          <div>
+            <button id="ul_button" class="get__btn">get</button>
+            <span class="button__span">
+              /weather?cords?lat=${lat}&lon=${lon}</span
+            >
+          </div>
+          <ul>
+            <h4>await lat,lon</h4>
+            <li>if wrong location <b>return</b> <span>status 500 </span></li>
+            <li>if OK <b>return</b> <span>status 200 + weather </span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <script>
+      'use strickt';
+      document.querySelectorAll('[id=button]').forEach(
+        (el) =>
+          (el.onclick = () => {
+            const div = el.nextElementSibling;
+
+            (el.className === 'section__title--button' &&
+              div.style.display === 'none') ||
+            div.style.display === ''
+              ? (div.style.display = 'block')
+              : (div.style.display = 'none');
+          })
+      );
+      document.querySelectorAll('[id=ul_button]').forEach(
+        (el) =>
+          (el.onclick = () => {
+            const ul = el.parentElement.nextElementSibling;
+
+            ul.style.display === 'none' || ul.style.display === ''
+              ? (ul.style.display = 'block')
+              : (ul.style.display = 'none');
+          })
+      );
+    </script>
+  </body>
+</html>

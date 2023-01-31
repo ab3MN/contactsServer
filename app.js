@@ -8,6 +8,9 @@ app.use(require('morgan')(formatsLogger));
 /* PUBLIC  */
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (_, res) => {
+  res.sendFile(path.resolve() + '/instruction/index.html');
+});
 
 /* CORS COOKIE JSON */
 const cors = require('cors');
@@ -22,6 +25,7 @@ app.use(require('cookie-parser')());
 app.use(express.json());
 
 /* ROUTES */
+
 app.use('/contacts', require('./routes/api/contactsRouter'));
 app.use('/users', require('./routes/api/usersRouter'));
 app.use('/tasks', require('./routes/api/tasksRouter'));
